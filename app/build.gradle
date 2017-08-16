@@ -36,5 +36,7 @@ dependencies {
     //xutils实现第三方登录后获取到头像进行展示
     compile 'org.xutils:xutils:3.4.0'
 
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
     testCompile 'junit:junit:4.12'
 }
