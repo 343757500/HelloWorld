@@ -37,4 +37,18 @@
         android:layout_width="276dp"
         android:layout_height="125dp" />
 
+
+    <Button
+        android:text="Zxing二维码扫描"
+        android:id="@+id/bt_zxing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:text="android6.0权限分配问题"
+        android:id="@+id/bt_permissions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
