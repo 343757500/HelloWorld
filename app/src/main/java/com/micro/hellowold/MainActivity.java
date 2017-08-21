@@ -6,7 +6,10 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,8 +33,15 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bt_permissions)
     Button btPermissions;
     private IUiListener listener;
+
+
+    public final int TYPE_TAKE_PHOTO = 1;//Uri获取类型判断
+
+    public final int CODE_TAKE_PHOTO = 1;//相机RequestCode
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +137,85 @@ public class MainActivity extends AppCompatActivity {
         btPermissions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_SDCARD, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+                requestPermission(Manifest.permission.CAMERA, CAMERA);
             }
         });
 
+
     }
+
+
+    //shouldShowRequestPermissionRationale主要用于给用户一个申请权限的解释，该方法只有在用户在上一次已经拒绝过你的这个权限申请。也就是说，用户已经拒绝一次了，你又弹个授权框，你需要给用户一个解释，为什么要授权，则使用该方法。
+    private void    requestPermission(String permission, int requestCode) {
+        if (!isGranted(permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+//
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            }
+        } else {
+            //直接执行相应操作了
+            Toast.makeText(getApplication(),"11",Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                String jpgPath = getCacheDir() + "test.jpg";
+                takePhotoByPath(jpgPath, 2);
+            } else {
+                // Permission Denied
+                Toast.makeText(MainActivity.this, "您没有授权该权限，请在设置中打开授权", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    /**
+     * 拍照,返回拍照文件的绝对路径
+     */
+    private String takePhotoByPath(String filePath, int requestCode) {
+        File file = new File(filePath);
+        startActivityForResult(getTakePhotoIntent(file), requestCode);
+        return file.getPath();
+    }
+
+
+    public boolean isGranted(String permission) {
+        return !isMarshmallow() || isGranted_(permission);
+    }
+
+    private boolean isMarshmallow() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    private boolean isGranted_(String permission) {
+        int checkSelfPermission = ActivityCompat.checkSelfPermission(this, permission);
+        return checkSelfPermission == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private Intent getTakePhotoIntent(File file) {
+        if (file.exists()) {
+            file.delete();
+        }
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        return intent;
+    }
+
 
 
 
@@ -162,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             }
     }*/
 
-
+/*
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
@@ -174,19 +263,19 @@ public class MainActivity extends AppCompatActivity {
     @PermissionGrant(REQUECT_CODE_SDCARD)
     public void requestSdcardSuccess()
     {
-        Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"10086"));
+       *//* Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"10086"));
         try {
             startActivity(intent);
         }catch (Exception e){
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
+        }*//*
     }
 
     @PermissionDenied(REQUECT_CODE_SDCARD)
     public void requestSdcardFailed()
     {
         Toast.makeText(this, "DENY ACCESS SDCARD!", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
 
 }
