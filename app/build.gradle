@@ -47,4 +47,10 @@ dependencies {
     //鸿洋的6.0运行时权限的封装
     apt 'com.zhy:mpermission-compiler:1.0.0'
     compile 'com.zhy:mpermission-api:1.0.0'
+
+    //各种UI设计效果
+    compile 'com.yalantis:phoenix:1.2.3'
+    //compile 'com.jpardogo.flabbylistview:library:(latest version)'
+    //UIx效果控件
+       compile 'com.sackcentury:shinebutton:0.1.9'
 }

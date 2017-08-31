@@ -20,6 +20,9 @@ buildscript {
 
         //鸿洋的6.0运行时权限的封装
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+
+       /* //UIx效果控件
+        compile 'com.sackcentury:shinebutton:0.1.9'*/
     }
 }
 

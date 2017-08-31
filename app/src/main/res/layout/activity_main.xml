@@ -34,8 +34,8 @@
 
     <ImageView
         android:id="@+id/ig_UserAvatar"
-        android:layout_width="276dp"
-        android:layout_height="125dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <Button
@@ -50,5 +50,16 @@
         android:id="@+id/bt_permissions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bt_UI"
+        android:text="一键跳转到UI测试效果"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.micro.hellowold.ui.StretchableFloatingButton
+        android:id="@+id/sf_btn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"></com.micro.hellowold.ui.StretchableFloatingButton>
 
 </LinearLayout>

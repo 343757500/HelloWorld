@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
 
-
+        <activity android:name=".UIActivity"></activity>
 
 
 

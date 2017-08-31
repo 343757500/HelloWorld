@@ -8,12 +8,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +22,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.micro.hellowold.interfaces.ILoginCallBack;
 import com.micro.hellowold.tools.LoginHttpModule;
 import com.micro.hellowold.tools.LoginManager;
+import com.micro.hellowold.ui.StretchableFloatingButton;
 import com.micro.hellowold.wxapi.WXPayEntryActivity;
 import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
@@ -35,13 +33,10 @@ import com.zhy.m.permission.PermissionGrant;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,13 +51,17 @@ public class MainActivity extends AppCompatActivity {
     Button btPay;
 
     public static final String APP_ID = "wx690b9cf56a4ec056";
-    private static  final int REQUECT_CODE_SDCARD = 0;
+    private static final int REQUECT_CODE_SDCARD = 0;
 
     public static Tencent mTencent;
     @BindView(R.id.bt_zxing)
     Button btZxing;
     @BindView(R.id.bt_permissions)
     Button btPermissions;
+    @BindView(R.id.bt_UI)
+    Button btUI;
+    @BindView(R.id.sf_btn)
+    StretchableFloatingButton sfBtn;
     private IUiListener listener;
 
 
@@ -137,17 +136,34 @@ public class MainActivity extends AppCompatActivity {
         btPermissions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                requestPermission(Manifest.permission.CAMERA, CAMERA);
+                MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_SDCARD, Manifest.permission.CALL_PHONE);
+                //requestPermission(Manifest.permission.CAMERA, CAMERA);
             }
         });
+
+        btUI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UIActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+
+
+        sfBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sfBtn.onStartOnclick();
+            }
+        });
+
 
 
     }
 
 
     //shouldShowRequestPermissionRationale主要用于给用户一个申请权限的解释，该方法只有在用户在上一次已经拒绝过你的这个权限申请。也就是说，用户已经拒绝一次了，你又弹个授权框，你需要给用户一个解释，为什么要授权，则使用该方法。
-    private void    requestPermission(String permission, int requestCode) {
+    private void requestPermission(String permission, int requestCode) {
         if (!isGranted(permission)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
 //
@@ -156,12 +172,12 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             //直接执行相应操作了
-            Toast.makeText(getApplication(),"11",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "11", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }
     }
 
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == CAMERA) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -174,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+    }*/
 
     /**
      * 拍照,返回拍照文件的绝对路径
@@ -217,9 +233,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     //确保能接收到
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,31 +264,30 @@ public class MainActivity extends AppCompatActivity {
             }
     }*/
 
-/*
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
     @PermissionGrant(REQUECT_CODE_SDCARD)
-    public void requestSdcardSuccess()
-    {
-       *//* Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+"10086"));
+    public void requestSdcardSuccess() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "10086"));
         try {
             startActivity(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }*//*
+        }
+
+
     }
 
     @PermissionDenied(REQUECT_CODE_SDCARD)
-    public void requestSdcardFailed()
-    {
+    public void requestSdcardFailed() {
         Toast.makeText(this, "DENY ACCESS SDCARD!", Toast.LENGTH_SHORT).show();
-    }*/
+    }
 
 
 }

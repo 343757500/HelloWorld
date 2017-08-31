@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/LinearLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yalantis.phoenix.PullToRefreshView
+        android:id="@+id/pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.yalantis.phoenix.PullToRefreshView>
+
+
+    <com.sackcentury.shinebuttonlib.ShineButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@android:color/darker_gray"
+        android:id="@+id/po_image2"
+        app:btn_color="@android:color/darker_gray"
+        app:btn_fill_color="@android:color/holo_green_dark"
+        app:allow_random_color="false"
+        app:siShape="@raw/smile"/>
+</LinearLayout>
