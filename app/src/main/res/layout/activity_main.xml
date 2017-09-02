@@ -62,4 +62,10 @@
         android:layout_width="300dp"
         android:layout_height="50dp"></com.micro.hellowold.ui.StretchableFloatingButton>
 
+    <Button
+        android:id="@+id/bt_recycle"
+        android:text="一键跳转到复杂的recycleView测试页面"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     Button btUI;
     @BindView(R.id.sf_btn)
     StretchableFloatingButton sfBtn;
+    @BindView(R.id.bt_recycle)
+    Button btRecycle;
     private IUiListener listener;
 
 
@@ -157,6 +159,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btRecycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),RecycleActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
