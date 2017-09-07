@@ -1,12 +1,18 @@
 package com.micro.hellowold;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
+import com.bt.mylibrary.TimeLineMarkerView;
+import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.yalantis.phoenix.PullToRefreshView;
 
@@ -17,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/21.
  */
 
-public class UIActivity extends AppCompatActivity {
+public class UIActivity extends Activity {
 
 
     @BindView(R.id.list_view)
@@ -28,11 +34,26 @@ public class UIActivity extends AppCompatActivity {
     ShineButton poImage2;
     @BindView(R.id.LinearLayout)
     android.widget.LinearLayout LinearLayout;
+    @BindView(R.id.time1)
+    TimeLineMarkerView time1;
+    @BindView(R.id.circle_progress)
+    CircleProgress circleProgress;
     private PullToRefreshView mPullToRefreshView;
+    private Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (msg.what==0) {
+                circleProgress.setProgress((Integer) msg.obj);
+            }
+            return true;
+        }
+    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.uiactivity);
         ButterKnife.bind(this);
 
@@ -59,5 +80,28 @@ public class UIActivity extends AppCompatActivity {
         if (LinearLayout != null) {
             LinearLayout.addView(shineButtonJava);
         }
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int j = 0; j < 1000; j++) {
+                    Message message=new Message();
+                    message.what=0;
+                    message.obj=j;
+                    handler.sendMessage(message);
+                    Log.e("hei",j+"      00000000000000000000000000000");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+
     }
 }

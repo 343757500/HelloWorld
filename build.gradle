@@ -29,6 +29,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        //进度条
+        maven { url "https://jitpack.io" }
     }
 }
 

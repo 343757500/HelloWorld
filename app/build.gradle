@@ -55,4 +55,10 @@ dependencies {
        compile 'com.sackcentury:shinebutton:0.1.9'
 
     compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    //时间轴控件
+    compile 'com.qht1003077897.timeline:timelinelibrary:0.1'
+
+    //进度条
+    compile 'com.github.lzyzsd:circleprogress:1.2.1'
 }

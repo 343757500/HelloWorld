@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.yalantis.phoenix.PullToRefreshView
+        android:visibility="gone"
         android:id="@+id/pull_to_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ListView
             android:id="@+id/list_view"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
     </com.yalantis.phoenix.PullToRefreshView>
 
@@ -31,4 +33,24 @@
         app:btn_fill_color="@android:color/holo_green_dark"
         app:allow_random_color="false"
         app:siShape="@raw/smile"/>
+
+    <com.bt.mylibrary.TimeLineMarkerView
+        android:id="@+id/time1"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:paddingTop="20dp"
+        app:beginLine="@color/blue_sky"
+        app:endLine="@color/blue_sky"
+        app:oritation="true"
+        app:marker="@drawable/timeline_bg_blue"/>
+
+
+    <com.github.lzyzsd.circleprogress.CircleProgress
+        android:id="@+id/circle_progress"
+        android:layout_marginLeft="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        custom:circle_progress="20"/>
+
+
 </LinearLayout>
