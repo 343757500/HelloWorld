@@ -31,6 +31,7 @@ allprojects {
         jcenter()
         //进度条
         maven { url "https://jitpack.io" }
+        maven { url 'https://jitpack.io' }
     }
 }
 

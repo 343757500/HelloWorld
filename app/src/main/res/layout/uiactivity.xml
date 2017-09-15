@@ -53,4 +53,11 @@
         custom:circle_progress="20"/>
 
 
+    <Button
+        android:text="一键跳到指导页面"
+        android:id="@+id/bt_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>

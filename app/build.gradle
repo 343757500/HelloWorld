@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.micro.hellowold"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -61,4 +61,6 @@ dependencies {
 
     //进度条
     compile 'com.github.lzyzsd:circleprogress:1.2.1'
+    //向导功能
+    compile 'com.github.huburt-Hu:NewbieGuide:v1.0.2'
 }

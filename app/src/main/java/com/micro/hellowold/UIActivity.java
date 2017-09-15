@@ -1,15 +1,17 @@
 package com.micro.hellowold;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.bt.mylibrary.TimeLineMarkerView;
 import com.github.lzyzsd.circleprogress.CircleProgress;
@@ -38,11 +40,13 @@ public class UIActivity extends Activity {
     TimeLineMarkerView time1;
     @BindView(R.id.circle_progress)
     CircleProgress circleProgress;
+    @BindView(R.id.bt_guide)
+    Button btGuide;
     private PullToRefreshView mPullToRefreshView;
-    private Handler handler=new Handler(new Handler.Callback() {
+    private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (msg.what==0) {
+            if (msg.what == 0) {
                 circleProgress.setProgress((Integer) msg.obj);
             }
             return true;
@@ -82,16 +86,15 @@ public class UIActivity extends Activity {
         }
 
 
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int j = 0; j < 1000; j++) {
-                    Message message=new Message();
-                    message.what=0;
-                    message.obj=j;
+                    Message message = new Message();
+                    message.what = 0;
+                    message.obj = j;
                     handler.sendMessage(message);
-                    Log.e("hei",j+"      00000000000000000000000000000");
+                    Log.e("hei", j + "      00000000000000000000000000000");
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -102,6 +105,13 @@ public class UIActivity extends Activity {
         }).start();
 
 
+        btGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UIActivity.this,GuideActivity.class);
+                UIActivity.this.startActivity(intent);
+            }
+        });
 
     }
 }
